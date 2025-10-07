@@ -1,3 +1,4 @@
+```
 Usage: remindme [-f] [-3|-2|-1] Take out the trash
 
 Options:
@@ -5,3 +6,5 @@ Options:
   -3                         High priority
   -2                         Medium priority
   -1                         Low priority
+
+```
