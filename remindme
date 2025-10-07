@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# Default values
+flag_reminder=false
+priority=0
+
+# Parse options
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -f|--flag)
+            flag_reminder=true
+            shift
+            ;;
+        -3|-2|-1)
+            priority="$1"
+            shift
+            ;;
+        -*)
+            echo "Unknown option: $1" >&2
+            echo "Usage: remindme [-f] [-3|-2|-1] <reminder text>" >&2
+            exit 1
+            ;;
+        *)
+            # Everything else is the reminder text
+            break
+            ;;
+    esac
+done
+
+# The remaining arguments are the reminder text
+reminder_text="$*"
+
+if [[ -z "$reminder_text" ]]; then
+    echo "Error: No reminder text provided" >&2
+    echo "Usage: remindme [-f] [-3|-2|-1] <reminder text>" >&2
+    exit 1
+fi
+
+# Map CLI priorities to Reminders priorities
+case "$priority" in
+    -1) apple_priority=9 ;;
+    -2) apple_priority=5 ;;
+    -3) apple_priority=1 ;;
+    0) apple_priority=0 ;;
+    *) apple_priority="$priority" ;;
+esac
+
+# Call the AppleScript with the parsed arguments
+osascript "$(dirname "$0")/remindme.scpt" "$reminder_text" "$apple_priority" "$flag_reminder"

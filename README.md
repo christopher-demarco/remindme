@@ -1,5 +1,7 @@
-Usage: remindme [-f] [-p 1] Take out the trash
+Usage: remindme [-f] [-3|-2|-1] Take out the trash
 
 Options:
   -f --flag                 Set the flag
-  -p <n> --priority=<n>     Set the priority (1=high, 5=medium, 9=low)
+  -3                         High priority
+  -2                         Medium priority
+  -1                         Low priority
