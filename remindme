@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Default values
-flag_reminder=false
-priority=0
+flag_reminder=true
+priority=-3
 
 # Parse options
 while [[ $# -gt 0 ]]; do
@@ -11,13 +11,17 @@ while [[ $# -gt 0 ]]; do
             flag_reminder=true
             shift
             ;;
+        -F|--no-flag)
+            flag_reminder=false
+            shift
+            ;;
         -3|-2|-1)
             priority="$1"
             shift
             ;;
         -*)
             echo "Unknown option: $1" >&2
-            echo "Usage: remindme [-f] [-3|-2|-1] <reminder text>" >&2
+            echo "Usage: remindme [-f|-F] [-3|-2|-1] <reminder text>" >&2
             exit 1
             ;;
         *)
@@ -32,7 +36,7 @@ reminder_text="$*"
 
 if [[ -z "$reminder_text" ]]; then
     echo "Error: No reminder text provided" >&2
-    echo "Usage: remindme [-f] [-3|-2|-1] <reminder text>" >&2
+    echo "Usage: remindme [-f|-F] [-3|-2|-1] <reminder text>" >&2
     exit 1
 fi
 
